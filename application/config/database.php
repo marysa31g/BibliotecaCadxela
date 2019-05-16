@@ -78,10 +78,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'biblioteca',
+	'hostname' => 'sql9.freesqldatabase.com',
+	'username' => 'sql9290979',
+	'password' => 'n74Lia1zzu',
+	'database' => 'sql9290979',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
