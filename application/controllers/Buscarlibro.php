@@ -12,9 +12,6 @@ class Buscarlibro extends CI_Controller {
 		$this->load->view('headerfoop/header');
 		$this->load->view('Contenido/buscar_libro',$data);
 		$this->load->view('headerfoop/foop');
-
-		
-		
 	}
 
 }
