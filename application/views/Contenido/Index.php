@@ -22,7 +22,7 @@
         </li>
       
         <li class="nav-item">
-          <a class="nav-link " href="#">Login</a>
+               <a class="btn btn-outline-primary"  data-toggle="modal" data-target="#loginmodal" href="" >Iniciar Sesion </a>
         </li>
       </ul>
       </form>
@@ -63,3 +63,4 @@
   </div>
 
 </main>
+	<?php include 'login.php';?>
