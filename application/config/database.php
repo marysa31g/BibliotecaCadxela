@@ -78,7 +78,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql9.freesqldatabase.com',
+	'hostname' => 'sql9.freesqldatabase.com:3306',
 	'username' => 'sql9290979',
 	'password' => 'n74Lia1zzu',
 	'database' => 'sql9290979',
