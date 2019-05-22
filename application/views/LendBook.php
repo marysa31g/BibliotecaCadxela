@@ -27,7 +27,7 @@
 <p></p>
 
 <div class="container">
-<?php echo($data);?>
+
 	<table id="example" class="display" style="width:100%">
         <thead>
             <tr>
@@ -36,6 +36,8 @@
                 <th>Stock</th>
                 <th>Páginas</th>
                 <th>Editorial</th>
+                <th>Préstamos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tfoot>
@@ -45,34 +47,68 @@
                 <th>Stock</th>
                 <th>Páginas</th>
                 <th>Editorial</th>
+                <th>Préstamos</th>
+                <th>Acciones</th>
             </tr>
         </tfoot>
     </table>
 
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	$(document).ready( function () {
 
-    	 $.ajax({
-	        url: "LendBook/getList",
-	        success : function(data) {
-	        	
-	            var o = JSON.parse(data);//A la variable le asigno el json decodificado
-	            $('#example').dataTable( {
-	                data : o,
-	                columns: [
-	                    { "data": "titulo" },
-                      { "data": "ISBN" },
-                      { "data": "numeroejemplar" },
-                      { "data": "paginas" },
-                      { "data": "editorial" }       
-	                ],
-	            });
-	        }       
-	    });
+      $('#example').dataTable({
+        "ajax": {
+            "type" : "GET",
+            "url" : "LendBook/getList",
+            "dataSrc": function ( json ) {
+                return json.data;
+            }       
+            },
+            "columns": [
+	                { "data": "titulo" },
+                  { "data": "ISBN" },
+                  { "data": "numeroejemplar" },
+                  { "data": "paginas" },
+                  { "data": "editorial" },
+                  { "data": "prestamos" },
+                  { "data": "actions" }       
+	            ]
+        
+      });
+    
 
-    	
+
 	} );
 
 </script>

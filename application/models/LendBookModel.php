@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 		}
 		public function getBooks(){
 			$books=$this->db->get('libros');
-			return $books;
+			return $books->result();
 		}
 		public function addlend($data){
 			$result=$this->db->insert('prestamo',$data);
@@ -26,6 +26,8 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 
 		}
 		public function countlend($id){
+			$query=$this->db->where(['idlibro'=>$id])->from("prestamo")->count_all_results();
+			return $query;
 			//SELECT COUNT(idlibro) FROM prestamo where idlibro=4
 		}
 		//Obtiene los datos de un estudiante
