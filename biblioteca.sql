@@ -185,20 +185,21 @@ INSERT INTO `rol` (`idrol`, `nombrerol`) VALUES
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `idusuario` int(10) NOT NULL auto_increment primary key,
-  `nombre` varchar(200) NOT NULL,
-  `apellido` varchar(200) NOT NULL,
-  `tiporol` int(10) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE usuarios(
+   idusuario int(10) NOT NULL  auto_increment,
+   nombre varchar(200) NOT NULL,
+   apellido varchar(200)NOT NULL,
+   tiporol int(10) NOT NULL,
+   email varchar(50) NOT NULL,
+   password varchar(50) NOT NULL,
+   CONSTRAINT PK_id_usuario PRIMARY KEY (idusuario));
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idusuario`, `nombre`, `apellido`, `idrol`, `email`, `password`) VALUES
+INSERT INTO `usuarios` (`idusuario`, `nombre`, `apellido`, `tiporol`, `email`, `password`) VALUES
 (1, 'marya', 'gomez', 2, 'marysa31g@gmail.com', 'marysa31g'),
 (2, 'biblioteca', 'Nova', 1, 'biblio@gmail.com', 'bibiblioteca');
 
