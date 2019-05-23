@@ -7,23 +7,25 @@
 
   </nav>
 </header>
-
 <div class="container p-4">
+ 
+
   <div class="row mt-2 justify-content-center">
-    <label class="col-form-label font-weight-bold">tipo</label>
-    <div class="col-auto">
-      <select id="selectTipo" class="form-control">
-        <option value="" hidden>Selecciona tipo de busqueda:</option>
-        <option value="autor">Autor</option>
-        <option value="titulo">Titulo</option>
-      </select>
-      <br>
+
+    <label class="col-form-label font-weight-bold">Introduce un libro:</label>
+    <form class="form-inline form-100" method="POST" action="<?php echo base_url("libros/buscarlibro") ?>">
       <div class="col-auto">
-        <button id="buscar" class="btn btn-md btn-success">Buscar</button>
+        <div class="form-group col-md-15">
+          <input class="form-control input-100" type="text" name="inputLibro" placeholder="Buscar  un libro" />
+        </div>
+        <br>
+        <div class="col-auto">
+          <button id="buscar"  type="submit" class="btn btn-md btn-success">Buscar</button>
+        </div>
       </div>
     </div>
-  </div>
-
+    
+  </form>
   <div class="row mt-5">
     <div class="col">
       <table class="table table-bordered">
@@ -50,15 +52,15 @@
           <th scope="col"><?= $fila->paginas;?></th>
           <th scope="col"><?= $fila->editorial;?></th>
           <td>
-              <div>
-               <a class="icon-views"></a>
-               </div>
-            </td>
-        </tr>
-      <?php }
-      ?>
-    </table>
-  </div>
+            <div>
+             <a class="icon-views"></a>
+           </div>
+         </td>
+       </tr>
+     <?php }
+     ?>
+   </table>
+ </div>
 </div>
 </div>
 
