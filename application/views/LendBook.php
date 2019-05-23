@@ -1,5 +1,5 @@
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
+ 	
  <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Cadxela Admin</a>
@@ -57,6 +57,7 @@
 
 <div class="modal fade" id="lend" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
+  <form id="formlend" >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -65,20 +66,32 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        
           <div class="form-group">
-            <label for="matricula" class="col-form-label">Matrícula:</label>
-            <input type="text" class="typeahead form-control" id="matricula" placeholder="Matricula del Estudiante">
+          <datalist id="autocompletado" >
+
+          </datalist>
+            <label for="Nombre" class="col-form-label">Nombre del Estudiante:</label>
+            <input type="text" list="autocompletado" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
+           
+            <input type="hidden" name="idbook" id="idbook" value="">
+           
+
+            <br>
+            <div class="alert alert-danger" id="userfail" role="alert">
+                Usuario no Encontrado
+            </div>
            
           </div>
           
-        </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="submit" id="savelend" class="btn btn-primary">Guardar</button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 
@@ -104,7 +117,7 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	$(document).ready( function () {
-
+      
       $('#example').dataTable({
         "ajax": {
             "type" : "GET",
@@ -131,11 +144,14 @@
         var id = button.data('id') // Extract info from data-* attributes
         var title = button.data('titlebook') // Extract info from data-* attributes
 
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Libro: ' + title)
-        
+        modal.find('#idbook').val(id)
+        $("#userfail").hide();
+
+        $("#autocompletado").html("");
+        $("#nombre").val("");
+        $("#savelend").attr("disabled",true);
       });
 
       $('#viewlends').on('show.bs.modal', function (event) {
@@ -148,18 +164,60 @@
         var modal = $(this)
         modal.find('.modal-title').text('Libro: ' + title)
         
+        
       });
+       
+      //Generar el datalist de sugerencias de usuarios
+     $("#nombre").keyup(function(){
+        var value=$("#nombre").val();
+        if(value!=""){
           
-      $('input.typeahead').typeahead({
-        source:  function (query, process) {
-        return $.get('LendBook/autocomplete/', { query: query }, function (data) {
-                console.log(data);
-                data = $.parseJSON(data);
-                return process(data);
-            });
-        }
-    });
+          $.ajax({
+            url:"LendBook/autocomplete/",
+            data:{query:value},
+            type:"POST",
+            
+            success:function(response){
+              console.log("response: "+response);
+              if(response=="1"){
+                $("#userfail").hide();
+                //success
+                $("#savelend").attr("disabled",false);
+              }else{
+                $("#userfail").show();
+                $("#autocompletado").html(response);
+              }
+                
+            }
 
+          });
+        }
+      });
+      //Capturar el evento en caso de seleccionar una opcion del datalist
+      $("#nombre").change('input', function () {
+        var val=$('#nombre').val();
+        var ejemplo = $('#autocompletado').find('option[value="'+val+'"]').data('listuser');
+        //success
+        $("#savelend").attr("disabled",false);
+      });
+
+      //submit form save lend
+      $("#formlend").submit(function(e){
+        var nombreuser=$('#nombre').val();
+        var idbook=$("#idbook").val();
+        var iduser= $('#autocompletado').find('option[value="'+nombreuser+'"]').data('listuser');
+
+        $.ajax({
+            url:"LendBook/saveLend/",
+            type:"POST",
+            data:{idb:idbook,matricula:iduser},
+            success:function(response){
+                alert(response);
+                console.log(response);
+            }
+
+        })
+      })
 
 	} );
 

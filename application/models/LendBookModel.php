@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 			$result=$this->db->insert('prestamo',$data);
 			//Reducir el numero de ejemplares en stock
 			/*
-
+				
 			*/
 			return $result;
 		}
@@ -29,29 +29,24 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 
 			return $query->result();
 		}
+
+		//Obtiene  el numero de prestamos de un libro
 		public function countlend($id){
 			$query=$this->db->where(['idlibro'=>$id])->from("prestamo")->count_all_results();
-			return $query;
-			
+			return $query;	
 		}
+
 		//obtiene las coicidencias de Nombres de Estudiantes
-		public function getstudent($info){
-			$this->db->like('nombre',$info);
+		public function getstudent_like($info){
+			$this->db->like('nombre',$info,'after');
 			$query=$this->db->get("usuarios")->result();
-
-			$this->db->select('nombre');
-			$this->db->from('usuarios');
-			$this->db->like('nombre',$info);
-			//$this->db->or_like();
-			$query=$this->db->get();
-			return $query->result();
-
+			return $query;
 		}
-		//Obtiene los datos de un estudiante
-		/*public function get_student($id)
-		{
+		public function getstudent($info){
+			$where['nombre']=$info;
 
-
-		}*/
+			$query=$this->db->get_where("usuarios",$where);
+			return $query->result();
+		}
 	}
 ?>

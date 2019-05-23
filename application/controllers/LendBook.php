@@ -71,20 +71,46 @@ class LendBook extends CI_Controller {
 
 	}
 	public function saveLend(){
-		$data=array(
-			'matricula'=>$this->input->post('matricula'),
-			'fechaprestamo'=>$this->input->post('inicio'),
-			'fechalimite'=>$this->input->post('limite'),
-			'idlibro'=>$this->input->post('idbook'),
-		);
+		//Generar las fechas de inicio y fin de prestamos
+		$inicio=date("Y-m-d");
+		$date=new Datetime($inicio);
+		$date->modify("+3 day");
+		$limite=$date->format("Y-m-d");
 
-		$result=$this->LendBook->addLend($data);
+		$data=array(
+			//'matricula'=>$this->input->post('matricula'),
+			'matricula'=>'0115010015',
+			'fechaprestamo'=>$inicio,
+			'fechalimite'=>$limite,
+			'fechadevolucion'=>'',
+			'idlibro'=>$this->input->post('idb')
+		);
+		
+		$result=$this->LendBookModel->addLend($data);
+		echo $result;
 	}
 
 	public function autocomplete(){
-		$info=$this->input->get('query');
-		$res=$this->LendBookModel->getstudent($info);
-		 echo json_encode($res);
+		$info=$this->input->post('query');
+		//Verificar si coincide con algun usuario válido
+		$x=$this->LendBookModel->getstudent($info);
+		if(count($x)>0){
+			echo "1";
+		}else{//Mostrar sugerencias
+			$res=$this->LendBookModel->getstudent_like($info);
+			//crear resultado del datalist de sugerencias
+			$result="";
+			if(count($res)>0){	
+				foreach($res as $r){
+						//$result.="<option value='".$r->nombre." ".$r->apellido. "'>valor</option>";
+						$result.="<option value='".$r->nombre."' data-listuser='".$r->idusuario."'></option>";
+				}	
+			}
+			echo $result;
+
+		}
+
+		
 
 	}
 
