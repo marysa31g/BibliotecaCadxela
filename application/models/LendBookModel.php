@@ -20,15 +20,32 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 			*/
 			return $result;
 		}
-		//Obtiene el stock de un libro
-		public function getstock($id)
-		{
+		//obtiene la lista de prestamos de  un libro
+		public function list_lend($id){
+			//matriculas de los alumnos con idlibro 
+			//Obtener sus nombres
+			$where['idlibro']=$id;
+			$query=$this->db->get_where("prestamo",$where);
 
+			return $query->result();
 		}
 		public function countlend($id){
 			$query=$this->db->where(['idlibro'=>$id])->from("prestamo")->count_all_results();
 			return $query;
-			//SELECT COUNT(idlibro) FROM prestamo where idlibro=4
+			
+		}
+		//obtiene las coicidencias de Nombres de Estudiantes
+		public function getstudent($info){
+			$this->db->like('nombre',$info);
+			$query=$this->db->get("usuarios")->result();
+
+			$this->db->select('nombre');
+			$this->db->from('usuarios');
+			$this->db->like('nombre',$info);
+			//$this->db->or_like();
+			$query=$this->db->get();
+			return $query->result();
+
 		}
 		//Obtiene los datos de un estudiante
 		/*public function get_student($id)

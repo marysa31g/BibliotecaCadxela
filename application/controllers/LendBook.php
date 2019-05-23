@@ -20,7 +20,7 @@ class LendBook extends CI_Controller {
 		$aux=array();
 		foreach ($result as $r){
 			$cou=$this->LendBookModel->countlend($r->idlibro);
-			$acciones=$this->acctions($r->numeroejemplar,$cou);
+			$acciones=$this->acctions($r->idlibro,$r->titulo,$r->numeroejemplar,$cou);
 
 			$array=array(
 				"idlibro"=>$r->idlibro,
@@ -42,17 +42,17 @@ class LendBook extends CI_Controller {
 		return $aux;
 
 	}
-	private function acctions($stock,$prestamos){
+	private function acctions($id,$title,$stock,$prestamos){
 		//Buton mostrar prestamos
 		$buttons="";
 		if($prestamos>0){
-			$buttons.="<button type='button' class='btn btn-outline-info' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'>Mostrar Prestamo</button>";
+			$buttons.="<button type='button' class='btn btn-outline-info' data-toggle='modal' data-id='".$id."' data-titlebook='".$title."' data-target='#viewlends' >Mostrar Prestamo</button>";
 		}else{
 			$buttons.="<button type='button' class='btn btn-outline-info' disabled>Mostrar Prestamo</button>";
 		}
 		//Button realizar prestamo
 		if($stock>0){
-			$buttons.="<button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'>Prestar Libro</button>";
+			$buttons.="<button type='button' class='btn btn-outline-primary' data-toggle='modal' data-id='".$id."' data-titlebook='".$title."' data-target='#lend'>Prestar Libro</button>";
 		}else{
 			$buttons.="<button type='button' class='btn btn-outline-primary' disabled>Prestar Libro</button>";
 		}
@@ -79,6 +79,13 @@ class LendBook extends CI_Controller {
 		);
 
 		$result=$this->LendBook->addLend($data);
+	}
+
+	public function autocomplete(){
+		$info=$this->input->get('query');
+		$res=$this->LendBookModel->getstudent($info);
+		 echo json_encode($res);
+
 	}
 
 
