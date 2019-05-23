@@ -186,10 +186,10 @@ INSERT INTO `rol` (`idrol`, `nombrerol`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `idusuario` int(10) NOT NULL,
+  `idusuario` int(10) NOT NULL auto_increment primary key,
   `nombre` varchar(200) NOT NULL,
   `apellido` varchar(200) NOT NULL,
-  `idrol` int(10) NOT NULL,
+  `tiporol` int(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
