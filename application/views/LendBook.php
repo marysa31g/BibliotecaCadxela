@@ -57,7 +57,7 @@
 
 <div class="modal fade" id="lend" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-  <form id="formlend" >
+  <form id="formlend">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -75,6 +75,7 @@
             <input type="text" list="autocompletado" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
            
             <input type="hidden" name="idbook" id="idbook" value="">
+            <input type="hidden" name="iduser" id="iduser" value="">
            
 
             <br>
@@ -164,6 +165,18 @@
         var modal = $(this)
         modal.find('.modal-title').text('Libro: ' + title)
         
+        $.ajax({
+          url:"LendBook/get_lends/",
+          type:"POST",
+          dataType:"JSON",
+          data:{idb:id},
+          beforeSend: function(){
+            console.log("Beforesend: "+id);
+          },
+          success:function(response){
+            console.log(response.data);
+          }
+        })
         
       });
        
@@ -183,7 +196,10 @@
                 $("#userfail").hide();
                 //success
                 $("#savelend").attr("disabled",false);
+                var ids=$('#autocompletado').find('option[value="'+value+'"]').data('listuser');
+               $('#iduser').val(ids);
               }else{
+                $("#savelend").attr("disabled",true);
                 $("#userfail").show();
                 $("#autocompletado").html(response);
               }
@@ -199,20 +215,20 @@
         var ejemplo = $('#autocompletado').find('option[value="'+val+'"]').data('listuser');
         //success
         $("#savelend").attr("disabled",false);
+        $('#iduser').val(ejemplo);
       });
 
       //submit form save lend
       $("#formlend").submit(function(e){
         var nombreuser=$('#nombre').val();
-        var idbook=$("#idbook").val();
-        var iduser= $('#autocompletado').find('option[value="'+nombreuser+'"]').data('listuser');
+        var idb=$("#idbook").val();
+        var idu= $('#autocompletado').find('option[value="'+nombreuser+'"]').data('listuser');
 
         $.ajax({
             url:"LendBook/saveLend/",
             type:"POST",
-            data:{idb:idbook,matricula:iduser},
+            data:{idbook:idb,matricula:idu},
             success:function(response){
-                alert(response);
                 console.log(response);
             }
 

@@ -35,10 +35,6 @@ class LendBook extends CI_Controller {
 			array_push($aux,$array);
 		}
 
-		/*$data['books']=$aux;
-		$this->load->view("headerfoop/header");
-		$this->load->view('test',$data);
-		$this->load->view("headerfoop/foop");*/
 		return $aux;
 
 	}
@@ -56,18 +52,41 @@ class LendBook extends CI_Controller {
 		}else{
 			$buttons.="<button type='button' class='btn btn-outline-primary' disabled>Prestar Libro</button>";
 		}
-		
-		
-
 		return $buttons;
 	}
+	//Obtiene la lista de libros
 	public function getList(){
-		/*$data=array("data"=>$this->LendBookModel->getBooks());
-		header('Content-type: application/json');
-		echo json_encode($data);*/
 		$data=array("data"=>$this->array_books());
 		header('Content-type: application/json');
 		echo json_encode($data);
+	}
+	//obtiene la lista de prestamos de un libro
+	public function get_lends(){
+		$idb=$this->input->post('idb');
+		$data=array("data"=>$this->array_lends($idb));
+		header('Content-type: application/json');
+		echo json_encode($data);
+
+	}
+	public function array_lends($id){
+		
+		$result=$this->LendBookModel->list_lend($id);
+		$aux=array();
+		foreach ($result as $r){
+			//$acciones=$this->acctions($r->idlibro,$r->titulo,$r->numeroejemplar,$cou);
+
+			$array=array(
+				"matricula"=>$r->matricula,
+				"nombre"=>$r->nombre,
+				"apellido"=>$r->apellido,
+				"inicio"=>$r->fechaprestamo,
+				"fin"=>$r->fechalimite
+				//"actions"=>$acciones
+			);
+			array_push($aux,$array);
+		}
+		
+		return $aux;
 
 	}
 	public function saveLend(){
@@ -79,11 +98,11 @@ class LendBook extends CI_Controller {
 
 		$data=array(
 			//'matricula'=>$this->input->post('matricula'),
-			'matricula'=>'0115010015',
+			'matricula'=>'0115010015',//verificar si es matricula o idusuario
 			'fechaprestamo'=>$inicio,
 			'fechalimite'=>$limite,
 			'fechadevolucion'=>'',
-			'idlibro'=>$this->input->post('idb')
+			'idlibro'=>$this->input->post('idbook')
 		);
 		
 		$result=$this->LendBookModel->addLend($data);
@@ -94,24 +113,22 @@ class LendBook extends CI_Controller {
 		$info=$this->input->post('query');
 		//Verificar si coincide con algun usuario válido
 		$x=$this->LendBookModel->getstudent($info);
+		$result="";
 		if(count($x)>0){
-			echo "1";
+			$result="1";
 		}else{//Mostrar sugerencias
 			$res=$this->LendBookModel->getstudent_like($info);
 			//crear resultado del datalist de sugerencias
-			$result="";
+			
 			if(count($res)>0){	
 				foreach($res as $r){
-						//$result.="<option value='".$r->nombre." ".$r->apellido. "'>valor</option>";
 						$result.="<option value='".$r->nombre."' data-listuser='".$r->idusuario."'></option>";
 				}	
 			}
-			echo $result;
+			
 
 		}
-
-		
-
+		echo $result;
 	}
 
 
