@@ -31,10 +31,10 @@
          <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
        </li>
        <li class="nav-item">
-         <a class="nav-link" href="" >Adeudos</a>
+         <a class="nav-link" href="<?php echo base_url();?>adeudos" >Adeudos</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link" href="<?php echo base_url();?>prestamos_controller" >Prestamos</a>
+         <a class="nav-link" href="<?php echo base_url();?>prestamos" >Prestamos</a>
        </li>
      </ul>
    </form>

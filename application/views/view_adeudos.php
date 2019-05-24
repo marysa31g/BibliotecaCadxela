@@ -25,9 +25,9 @@
       <thead>
         <tr>
           <th scope="col">Matrícula</th>
-          <th scope="col">Fecha Prestamo</th>
-          <th scope="col">Fecha Límite</th>
-          <th scope="col">Fecha Devolucion</th>
+          <th scope="col">Descripción del adeudo</th>
+          <th scope="col">Fecha de Adeudo</th>
+          <th scope="col">Fecha de Reposicion</th>
           
         </tr>
       </thead>
@@ -37,9 +37,9 @@
       foreach($consulta->result() as $fila){ ?>
        <tr>
         <th scope="col"><?= $fila->matricula;?></th>
-        <th scope="col"><?= $fila->fechaprestamo;?></th>
-        <th scope="col"><?= $fila->fechalimite;?></th>
-        <th scope="col"><?= $fila->fechadevolucion?></th>
+        <th scope="col"><?= $fila->descripcionadeudo;?></th>
+        <th scope="col"><?= $fila->fechaadeudo;?></th>
+        <th scope="col"><?= $fila->fechareposicion?></th>
         <td>
           <div>
            <a class="icon-views"></a>

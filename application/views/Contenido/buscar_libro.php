@@ -1,3 +1,4 @@
+
  <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Cadxela</a>
@@ -14,7 +15,7 @@
 
     <label class="col-form-label font-weight-bold">Introduce un libro:</label>
     <form class="form-inline form-100" method="POST" action="<?php echo base_url("libros/buscarlibro") ?>">
-      <div class="col-auto">
+       <div class="col-auto">
         <div class="form-group col-md-15">
           <input class="form-control input-100" type="text" name="inputLibro" placeholder="Buscar  un libro" />
         </div>

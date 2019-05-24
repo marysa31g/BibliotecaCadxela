@@ -17,13 +17,7 @@ class Buscarlibro extends CI_Controller {
 		$this->load->view('headerfoop/foop');
 	}
 
-	public function buscarLibro(){
-		$nombre = $this->input->post('inputLibro');
-		$libro = $this->model_buscarlibro->buscarporNombre($nombre);
-		$datos['libroBuscado'] = $libro;
-		$this->load->view('Contenido/buscar_libro', $datos);
-	}
-
+	
 
 
 }
