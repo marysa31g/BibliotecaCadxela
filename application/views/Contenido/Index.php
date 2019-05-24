@@ -13,21 +13,33 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-       
+
       </ul>
       <form class="form-inline mt-2 mt-md-0">
-         <ul class="navbar-nav mr-auto">
-     <li class="nav-item active">
+       <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
           <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
         </li>
-      
+
         <li class="nav-item">
-               <a class="btn btn-outline-primary"  data-toggle="modal" data-target="#loginmodal" href="" >Iniciar Sesion </a>
-        </li>
-      </ul>
-      </form>
-    </div>
-  </nav>
+         <a class="nav-link" data-toggle="modal" data-target="#loginmodal" href="" >Iniciar Sesion </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo base_url();?>usuarios_controller" >Usuarios</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="" >Adeudos</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo base_url();?>prestamos_controller" >Prestamos</a>
+       </li>
+     </ul>
+   </form>
+ </div>
+</nav>
 </header>
 
 <main role="main">
@@ -44,23 +56,23 @@
         <div class="container">
           <div class="carousel-caption text-left">
            <!-- <h1>Biblioteca Escolar</h1>-->
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%"  focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg>
-         <img src="<?php echo base_url();?>rec/images/x2.jpg">
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Atrevete a leer</h1>
-            <p>La lectura no da al hombre sabiduría; le da conocimientos</p>
-           
-          </div>
-        </div>
-      </div>
+         </div>
+       </div>
+     </div>
+     <div class="carousel-item">
+      <svg class="bd-placeholder-img" width="100%" height="100%"  focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg>
+      <img src="<?php echo base_url();?>rec/images/x2.jpg">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Atrevete a leer</h1>
+          <p>La lectura no da al hombre sabiduría; le da conocimientos</p>
 
+        </div>
+      </div>
     </div>
+
   </div>
+</div>
 
 </main>
-	<?php include 'login.php';?>
+<?php include 'login.php';?>
