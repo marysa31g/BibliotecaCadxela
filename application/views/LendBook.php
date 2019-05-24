@@ -93,8 +93,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="viewlends" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade bd-modal-lg" id="viewlends" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg " role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -103,11 +103,32 @@
         </button>
       </div>
       <div class="modal-body">
-          <p>Lista de prestamos</p>
+         
+          <table id="lista_prestamos" class="display" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>Matricula</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Fecha Préstamo</th>
+                      <th>Fecha Límite</th>
+                      
+                  </tr>
+              </thead>
+              <tfoot>
+                  <tr>
+                      <th>Matricula</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Fecha Préstamo</th>
+                      <th>Fecha Límite</th>
+                  </tr>
+              </tfoot>
+          </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        
       </div>
     </div>
   </div>
@@ -158,8 +179,12 @@
         var title = button.data('titlebook') // Extract info from data-* attributes
 
         var modal = $(this)
-        modal.find('.modal-title').text('Libro: ' + title)
+        modal.find('.modal-title').text('Préstamos de:  ' + title)
         
+        //Reiniciar los datos del datatable
+        var table = $('#lista_prestamos').DataTable();
+        table.destroy();
+
         $.ajax({
           url:"LendBook/get_lends/",
           type:"POST",
@@ -170,6 +195,18 @@
           },
           success:function(response){
             console.log(response.data);
+
+            $('#lista_prestamos').dataTable({
+                  data:response.data,
+                  "columns": [
+                        { "data": "matricula" },
+                        { "data": "nombre" },
+                        { "data": "apellido" },
+                        { "data": "inicio" },
+                        { "data": "fin" }         
+                    ]
+            });
+
           }
         })
         
