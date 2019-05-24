@@ -10,9 +10,17 @@ class LendBook extends CI_Controller {
 	}
 
 	public function index(){
-		$this->load->view("headerfoop/header");
-		$this->load->view("LendBook");
-		$this->load->view("headerfoop/foop");
+		if ($this->session->userdata('is_authenticated') == TRUE) {
+			$this->load->view("headerfoop/header");
+			$this->load->view("LendBook");
+			$this->load->view("headerfoop/foop");
+
+		
+        }else{
+			redirect('Welcome');
+		}
+		
+		
 	}
 	public function array_books(){
 		//$data['books']=$this->LendBookModel->getBooks();

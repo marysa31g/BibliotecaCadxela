@@ -14,12 +14,12 @@
 
                             </div>
                             <br>
-                  <form method="POST" action="">
+                  <form method="POST" action="Welcome/doLogin">
                   <span id="text-login-msg" >Usuario.</span><span id="A"></span>
-				    		<input id="login_username" oninput="validar()"  class="form-control" type="text" placeholder="correo@gmail.com" name="username" required>
+				    		<input id="login_username" oninput="validar()"  class="form-control" type="text" placeholder="correo@gmail.com" autocomplete="off" name="username" required>
                              <br>
                   <span id="text-login-msg">Contraseña.</span><span id="B"></span>
-				    		<input id="login_password" oninput="validar()" class="form-control" type="password" placeholder="Contraseña" name="password" required>
+				    		<input id="login_password"  class="form-control" type="password" placeholder="Contraseña" name="password" required>
                 <div class="modal-footer">
                             <div>
                               <span id="C"></span>
@@ -66,7 +66,11 @@ if(email_valida==""){
       A.style.color = "green";
       login_username.style.borderColor="green";
       document.getElementById('valido').style.display='none';
-    if( validar_Password( contrasena_valida ))
+      B.innerHTML = "   (Verificando Password)";
+      B.style.color = "green";
+      login_password.style.borderColor="green";
+      document.getElementById('valido').style.display='inline';
+    /*if( validar_Password( contrasena_valida ))
      {
       B.innerHTML = "   (Verificando Password)";
       B.style.color = "green";
@@ -78,7 +82,7 @@ if(email_valida==""){
       B.style.color = "red";
       login_password.style.borderColor="red";
       document.getElementById('valido').style.display='none';
-     }
+     }*/
   }
   else
   {

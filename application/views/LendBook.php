@@ -13,12 +13,10 @@
       <form class="form-inline mt-2 mt-md-0">
          <ul class="navbar-nav mr-auto">
      <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo base_url();?>welcome" >Home<span class="sr-only">(current)</span></a>
         </li>
       
-        <li class="nav-item">
-          <a class="nav-link " href="#">Login</a>
-        </li>
+        
       </ul>
       </form>
     </div>

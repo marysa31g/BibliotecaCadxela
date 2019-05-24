@@ -7,7 +7,13 @@
 <body>
  <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Cadxela</a>
+    <a class="navbar-brand" href="">Cadxela
+    <?php 
+            if($this->session->userdata('is_authenticated')){
+              echo 'Bienvenido '.$this->session->userdata('name');
+            }
+    ?>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,22 +26,51 @@
          <li class="nav-item active">
           <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
         </li>
+        <?php
+          if(!$this->session->userdata('is_authenticated')){
+            echo '<li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#loginmodal" href="" >Iniciar Sesion </a>
+          </li>';
 
-        <li class="nav-item">
-         <a class="nav-link" data-toggle="modal" data-target="#loginmodal" href="" >Iniciar Sesion </a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="<?php echo base_url();?>usuarios_controller" >Usuarios</a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="<?php echo base_url();?>adeudos" >Adeudos</a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="<?php echo base_url();?>prestamos" >Prestamos</a>
-       </li>
+          }
+        ?>
+        
+      
+        <?php 
+            if($this->session->userdata('is_authenticated')){
+              
+              if($this->session->userdata('tiporol')==1){//admin
+
+              ?>
+                <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>usuarios_controller" >Usuarios</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>adeudos" >Adeudos</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>prestamos" >Prestamos</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>LendBook" >Realizar Prestamos</a>
+                      </li>
+              <?php
+              }else{//student
+                ?>
+              <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
+              </li>
+              <?php
+              }
+              echo '<li class="nav-item">
+              <a class="nav-link" href="Welcome/logout" >Cerrar Sesión</a>
+            </li>';
+            }
+        ?>
+       
      </ul>
    </form>
  </div>
@@ -73,6 +108,13 @@
 
   </div>
 </div>
+<?php 
+if($this->session->userdata('is_authenticated')){
+  echo "<p>Nombre del usuario conectado: ".$this->session->userdata('name')."</p>"; 
+  echo "<p>Nemail del usuario conectado: ".$this->session->userdata('email')."</p>"; 
+  echo "<p>Rol del usuario conectado: ".$this->session->userdata('tiporol')."</p>"; 
+}
+?>
 
 </main>
 <?php include 'login.php';?>
