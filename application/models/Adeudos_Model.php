@@ -17,7 +17,6 @@ class Prestamos_Model extends CI_Model{
 	}
 
 
-	/*metodo para insertar un adeudo
 	public function insertarPrestamo(){
 		if($this->input->post()){
 			$prestamos=array(
@@ -35,7 +34,6 @@ class Prestamos_Model extends CI_Model{
 		return false;
 	}
 	
-	/*metodo para insertar un adeudo
 	public function insertarAdeudo(){
 		if($this->input->post()){
 			$adeudos=array(
