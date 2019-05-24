@@ -20,7 +20,7 @@ class LendBook extends CI_Controller {
 		$aux=array();
 		foreach ($result as $r){
 			$cou=$this->LendBookModel->countlend($r->idlibro);
-			$acciones=$this->acctions($r->numeroejemplar,$cou);
+			$acciones=$this->acctions($r->idlibro,$r->titulo,$r->numeroejemplar,$cou);
 
 			$array=array(
 				"idlibro"=>$r->idlibro,
@@ -35,50 +35,100 @@ class LendBook extends CI_Controller {
 			array_push($aux,$array);
 		}
 
-		/*$data['books']=$aux;
-		$this->load->view("headerfoop/header");
-		$this->load->view('test',$data);
-		$this->load->view("headerfoop/foop");*/
 		return $aux;
 
 	}
-	private function acctions($stock,$prestamos){
+	private function acctions($id,$title,$stock,$prestamos){
 		//Buton mostrar prestamos
 		$buttons="";
 		if($prestamos>0){
-			$buttons.="<button type='button' class='btn btn-outline-info' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'>Mostrar Prestamo</button>";
+			$buttons.="<button type='button' class='btn btn-outline-info' data-toggle='modal' data-id='".$id."' data-titlebook='".$title."' data-target='#viewlends' >Mostrar Prestamo</button>";
 		}else{
 			$buttons.="<button type='button' class='btn btn-outline-info' disabled>Mostrar Prestamo</button>";
 		}
 		//Button realizar prestamo
 		if($stock>0){
-			$buttons.="<button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'>Prestar Libro</button>";
+			$buttons.="<button type='button' class='btn btn-outline-primary' data-toggle='modal' data-id='".$id."' data-titlebook='".$title."' data-target='#lend'>Prestar Libro</button>";
 		}else{
 			$buttons.="<button type='button' class='btn btn-outline-primary' disabled>Prestar Libro</button>";
 		}
-		
-		
-
 		return $buttons;
 	}
+	//Obtiene la lista de libros
 	public function getList(){
-		/*$data=array("data"=>$this->LendBookModel->getBooks());
-		header('Content-type: application/json');
-		echo json_encode($data);*/
 		$data=array("data"=>$this->array_books());
+		header('Content-type: application/json');
+		echo json_encode($data);
+	}
+	//obtiene la lista de prestamos de un libro
+	public function get_lends(){
+		$idb=$this->input->post('idb');
+		$data=array("data"=>$this->array_lends($idb));
 		header('Content-type: application/json');
 		echo json_encode($data);
 
 	}
-	public function saveLend(){
-		$data=array(
-			'matricula'=>$this->input->post('matricula'),
-			'fechaprestamo'=>$this->input->post('inicio'),
-			'fechalimite'=>$this->input->post('limite'),
-			'idlibro'=>$this->input->post('idbook'),
-		);
+	public function array_lends($id){
+		
+		$result=$this->LendBookModel->list_lend($id);
+		$aux=array();
+		foreach ($result as $r){
+			//$acciones=$this->acctions($r->idlibro,$r->titulo,$r->numeroejemplar,$cou);
 
-		$result=$this->LendBook->addLend($data);
+			$array=array(
+				"matricula"=>$r->matricula,
+				"nombre"=>$r->nombre,
+				"apellido"=>$r->apellido,
+				"inicio"=>$r->fechaprestamo,
+				"fin"=>$r->fechalimite
+				//"actions"=>$acciones
+			);
+			array_push($aux,$array);
+		}
+		
+		return $aux;
+
+	}
+	public function saveLend(){
+		//Generar las fechas de inicio y fin de prestamos
+		$inicio=date("Y-m-d");
+		$date=new Datetime($inicio);
+		$date->modify("+3 day");
+		$limite=$date->format("Y-m-d");
+
+		$data=array(
+			//'matricula'=>$this->input->post('matricula'),
+			'matricula'=>'0115010015',//verificar si es matricula o idusuario
+			'fechaprestamo'=>$inicio,
+			'fechalimite'=>$limite,
+			'fechadevolucion'=>'',
+			'idlibro'=>$this->input->post('idbook')
+		);
+		
+		$result=$this->LendBookModel->addLend($data);
+		echo $result;
+	}
+
+	public function autocomplete(){
+		$info=$this->input->post('query');
+		//Verificar si coincide con algun usuario válido
+		$x=$this->LendBookModel->getstudent($info);
+		$result="";
+		if(count($x)>0){
+			$result="1";
+		}else{//Mostrar sugerencias
+			$res=$this->LendBookModel->getstudent_like($info);
+			//crear resultado del datalist de sugerencias
+			
+			if(count($res)>0){	
+				foreach($res as $r){
+						$result.="<option value='".$r->nombre."' data-listuser='".$r->idusuario."'></option>";
+				}	
+			}
+			
+
+		}
+		echo $result;
 	}
 
 
