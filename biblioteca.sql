@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-05-2019 a las 00:51:50
+-- Tiempo de generación: 24-05-2019 a las 04:29:11
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -97,19 +97,20 @@ CREATE TABLE `estudiante` (
   `matricula` varchar(10) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `apellido` varchar(200) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `idrol` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `estudiante`
 --
 
-INSERT INTO `estudiante` (`matricula`, `nombre`, `apellido`, `password`) VALUES
-('0115010001', 'Isabel', 'Gomez', 'isabel12345'),
-('0115010002', 'Juana', 'Perez', 'juana12345'),
-('0115010003', 'Pedro', 'Felipe', 'pedro12345'),
-('0115010005', 'Adrian', 'Sarniento', 'adrian12345'),
-('0115010015', 'Luis', 'Gonzales', 'luis12345');
+INSERT INTO `estudiante` (`matricula`, `nombre`, `apellido`, `password`, `idrol`) VALUES
+('0115010001', 'Isabel', 'Gomez', 'isabel12345', 2),
+('0115010002', 'Juana', 'Perez', 'juana12345', 2),
+('0115010003', 'Pedro', 'Felipe', 'pedro12345', 2),
+('0115010005', 'Adrian', 'Sarniento', 'adrian12345', 2),
+('0115010015', 'Luis', 'Gonzales', 'luis12345', 2);
 
 -- --------------------------------------------------------
 
@@ -185,15 +186,14 @@ INSERT INTO `rol` (`idrol`, `tiporol`) VALUES
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-
-CREATE TABLE usuarios(
-   idusuario int(10) NOT NULL  auto_increment,
-   nombre varchar(200) NOT NULL,
-   apellido varchar(200)NOT NULL,
-   tiporol int(10) NOT NULL,
-   email varchar(50) NOT NULL,
-   password varchar(50) NOT NULL,
-   CONSTRAINT PK_id_usuario PRIMARY KEY (idusuario));
+CREATE TABLE `usuarios` (
+  `idusuario` int(10) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
+  `apellido` varchar(200) NOT NULL,
+  `tiporol` int(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -232,7 +232,8 @@ ALTER TABLE `autores_libro`
 -- Indices de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  ADD PRIMARY KEY (`matricula`);
+  ADD PRIMARY KEY (`matricula`),
+  ADD KEY `idrol` (`idrol`);
 
 --
 -- Indices de la tabla `libros`
@@ -260,7 +261,7 @@ ALTER TABLE `rol`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`idusuario`),
-  ADD KEY `idrol` (`idrol`);
+  ADD KEY `idrol` (`tiporol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -300,7 +301,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
