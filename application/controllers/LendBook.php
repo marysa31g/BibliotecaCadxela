@@ -91,21 +91,24 @@ class LendBook extends CI_Controller {
 	}
 	public function saveLend(){
 		//Generar las fechas de inicio y fin de prestamos
+		$matricula=$this->input->post('matricula');
+		$idbook=$this->input->post('idbook');
 		$inicio=date("Y-m-d");
 		$date=new Datetime($inicio);
 		$date->modify("+3 day");
 		$limite=$date->format("Y-m-d");
 
 		$data=array(
-			//'matricula'=>$this->input->post('matricula'),
-			'matricula'=>'0115010015',//verificar si es matricula o idusuario
+			'matricula'=>$matricula,
 			'fechaprestamo'=>$inicio,
 			'fechalimite'=>$limite,
 			'fechadevolucion'=>'',
-			'idlibro'=>$this->input->post('idbook')
+			'idlibro'=>$idbook
 		);
 		
+
 		$result=$this->LendBookModel->addLend($data);
+		
 		echo $result;
 	}
 
@@ -122,7 +125,7 @@ class LendBook extends CI_Controller {
 			
 			if(count($res)>0){	
 				foreach($res as $r){
-						$result.="<option value='".$r->nombre."' data-listuser='".$r->idusuario."'></option>";
+						$result.="<option value='".$r->matricula."' data-listuser='".$r->matricula."'>".$r->nombre." ".$r->apellido. "</option>";
 				}	
 			}
 			

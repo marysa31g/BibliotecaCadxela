@@ -57,7 +57,7 @@
 
 <div class="modal fade" id="lend" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-  <form id="formlend">
+  <form id="formlend" >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -71,13 +71,10 @@
           <datalist id="autocompletado" >
 
           </datalist>
-            <label for="Nombre" class="col-form-label">Nombre del Estudiante:</label>
-            <input type="text" list="autocompletado" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
+            <label for="matricula" class="col-form-label">Matrícula del Estudiante:</label>
+            <input type="text" list="autocompletado" class="form-control" name="matricula" id="matricula" autocomplete="off" placeholder="Matrícula">
            
             <input type="hidden" name="idbook" id="idbook" value="">
-            <input type="hidden" name="iduser" id="iduser" value="">
-           
-
             <br>
             <div class="alert alert-danger" id="userfail" role="alert">
                 Usuario no Encontrado
@@ -151,7 +148,7 @@
         $("#userfail").hide();
 
         $("#autocompletado").html("");
-        $("#nombre").val("");
+        $("#matricula").val("");
         $("#savelend").attr("disabled",true);
       });
 
@@ -160,8 +157,6 @@
         var id = button.data('id') // Extract info from data-* attributes
         var title = button.data('titlebook') // Extract info from data-* attributes
 
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Libro: ' + title)
         
@@ -181,10 +176,9 @@
       });
        
       //Generar el datalist de sugerencias de usuarios
-     $("#nombre").keyup(function(){
-        var value=$("#nombre").val();
+     $("#matricula").keyup(function(){
+        var value=$("#matricula").val();
         if(value!=""){
-          
           $.ajax({
             url:"LendBook/autocomplete/",
             data:{query:value},
@@ -196,8 +190,6 @@
                 $("#userfail").hide();
                 //success
                 $("#savelend").attr("disabled",false);
-                var ids=$('#autocompletado').find('option[value="'+value+'"]').data('listuser');
-               $('#iduser').val(ids);
               }else{
                 $("#savelend").attr("disabled",true);
                 $("#userfail").show();
@@ -210,20 +202,15 @@
         }
       });
       //Capturar el evento en caso de seleccionar una opcion del datalist
-      $("#nombre").change('input', function () {
-        var val=$('#nombre').val();
-        var ejemplo = $('#autocompletado').find('option[value="'+val+'"]').data('listuser');
-        //success
+      $("#matricula").change('input', function () {
         $("#savelend").attr("disabled",false);
-        $('#iduser').val(ejemplo);
+       
       });
 
       //submit form save lend
       $("#formlend").submit(function(e){
-        var nombreuser=$('#nombre').val();
+        var idu=$('#matricula').val();
         var idb=$("#idbook").val();
-        var idu= $('#autocompletado').find('option[value="'+nombreuser+'"]').data('listuser');
-
         $.ajax({
             url:"LendBook/saveLend/",
             type:"POST",
@@ -231,7 +218,6 @@
             success:function(response){
                 console.log(response);
             }
-
         })
       })
 

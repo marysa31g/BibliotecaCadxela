@@ -46,13 +46,13 @@ defined('BASEPATH') OR exit('No direct scrript acces allowed') ;
 
 		//obtiene las coicidencias de Nombres de Estudiantes
 		public function getstudent_like($info){
-			$this->db->like('nombre',$info,'after');
-			$query=$this->db->get("usuarios")->result();
+			$this->db->like('matricula',$info,'after');
+			$query=$this->db->get("estudiante")->result();
 			return $query;
 		}
 		public function getstudent($info){
-			$where['nombre']=$info;
-			$query=$this->db->get_where("usuarios",$where);
+			$where['matricula']=$info;
+			$query=$this->db->get_where("estudiante",$where);
 			return $query->result();
 		}
 	}
