@@ -168,14 +168,14 @@ INSERT INTO `prestamo` (`idprestamo`, `matricula`, `fechaprestamo`, `fechalimite
 
 CREATE TABLE `rol` (
   `idrol` int(10) NOT NULL,
-  `nombrerol` varchar(200) NOT NULL
+  `tiporol` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`idrol`, `nombrerol`) VALUES
+INSERT INTO `rol` (`idrol`, `tiporol`) VALUES
 (1, 'biblio'),
 (2, 'estudiante');
 
