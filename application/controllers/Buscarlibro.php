@@ -5,7 +5,7 @@ class Buscarlibro extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('LendBookModel', 'modelibro', true);	
+		$this->load->model('Model_buscarlibro','BL',true);
 	}
 
 	public function index()
@@ -17,7 +17,23 @@ class Buscarlibro extends CI_Controller {
 		$this->load->view('headerfoop/foop');
 	}
 
+
+	public function buscar(){
+		if ($_POST) {
+			$libro=$this->input->post('inputLibro');
+		}else{
+			$libro='';
+		}
+		if ($libro!='') {
+			$Datos=$this->BL->verlibro($libro);
+			$this->load->view('headerfoop/header');
+			$this->load->view('Contenido/busqueda',compact("Datos"));
+		}else{
+		}
+	}
+
 	
+		
 
 
 }

@@ -19,11 +19,4 @@ class Prestamos extends CI_Controller{
 
 
 
-	public function insertarPrestamo(){
-		$res=$this->Presta->insertarPrestamo();
-		$Info['mensaje']=($res)?"Prestamo Registrado":"Hubo un error en insertar el prestamo del libro";
-		$Info['Prestamos']=$this->Presta->obtenerPrestamos();
-
-		$this->load->view('view_prestamos',$Info);
-	}
 }

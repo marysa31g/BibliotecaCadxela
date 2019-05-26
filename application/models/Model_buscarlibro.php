@@ -14,20 +14,21 @@ class Model_buscarlibro extends CI_Model
 
 	}
 
-	public function buscarporNombre($nombre){
-		$this->db->select('*');
-		$this->db->from('libros');
-		$this->db->join('autores_libro a1', 'a1.idlibro = libros.idlibro', 'left');
-		$this->db->join('autores', 'autores.idautor = a1.idautor', 'left');
-		$this->db->like('libros.titulo', $nombre);
-		$this->db->like('titulo', $nombre);
-		$query = $this->db->get();
-		if($query->num_rows() > 0)
-		{
-			return $query->result();
+	public function verlibro($busqueda)
+	{
+		return $this->db->query("SELECT * FROM (SELECT libros.titulo,libros.ISBN,libros.paginas,libros.numeroejemplar, libros.editorial,autores.nombre, autores.apellido from autores INNER JOIN autores_libro ON autores.idautor=autores_libro.idautor INNER JOIN libros on libros.idlibro=autores_libro.idlibro) as busqueda WHERE busqueda.titulo='{$busqueda}' or  busqueda.nombre='{$busqueda}'")->result();
+		if ($busqueda->num_rows()>0) {
+			return $busqueda->result();
 		}else{
-			return null;
-		}	
+			return false;
+		}
 	}
+	/*
+
+	SELECT libros.titulo,estudiante.nombre,adeudos.matricula,adeudos.fechareposicion from adeudos INNER JOIN estudiante ON estudiante.matricula=adeudos.matricula INNER JOIN libros ON libros.idlibro=adeudos.idlibro;
+
+	SELECT libros.titulo,libros.ISBN,libros.paginas,libros.numeroejemplar, libros.editorial,autores.nombre, autores.apellido from autores INNER JOIN autores_libro ON autores.idautor=autores_libro.idautor INNER JOIN libros on libros.idlibro=autores_libro.idlibro;
+	*/
+
 
 }

@@ -21,11 +21,13 @@
 </nav>
 </header>
 <div class="container p-4">
+ 
 
   <div class="row mt-2 justify-content-center">
 
     <label class="col-form-label font-weight-bold">Introduce un libro:</label>
     <form class="form-inline form-100" method="POST" action="<?=base_url()?>buscarlibro/buscar">
+
      <div class="col-auto">
       <div class="form-group col-md-15">
         <input class="form-control input-100" type="text" name="inputLibro" placeholder="Buscar  un libro" />
@@ -36,36 +38,35 @@
       </div>
     </div>
   </div>
-
 </form>
 <div class="row mt-5">
   <div class="col">
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">Número</th>
-          <th scope="col">Título</th>
-          <th scope="col">ISB</th>
+          <th scope="col">Titulo de libro</th>
+          <th scope="col">TSBN</th>
+          <th scope="col">Paginas</th>
           <th scope="col">Número de ejemplar</th>
-          <th scope="col">Páginas</th>
           <th scope="col">Editorial</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Apellido del Autor</th>
         </tr>
       </thead>
       <tbody>
+        <?php
+        foreach ($Datos as $fila) {
+          echo "<tr><td>".$fila->titulo."</td>".
+          "<td>".$fila->ISBN."</td>".
+          "<td>".$fila->paginas."</td>".
+          "<td>".$fila->numeroejemplar."</td>".
+          "<td>".$fila->editorial."</td>".
+          "<td>".$fila->nombre."</td>".
+          "<td>".$fila->apellido."</td>"."</tr>";
+        }
+        ?>
       </tbody>
-      <?php 
-      foreach($consulta->result() as $fila){ ?>
-       <tr>
-        <th scope="col"><?= $fila->idlibro;?></th>
-        <th scope="col"><?= $fila->titulo;?></th>
-        <th scope="col"><?= $fila->ISBN;?></th>
-        <th scope="col"><?= $fila->numeroejemplar?></th>
-        <th scope="col"><?= $fila->paginas;?></th>
-        <th scope="col"><?= $fila->editorial;?></th>
-      </tr>
-    <?php }
-    ?>
-  </table>
-</div>
+    </table>
+  </div>
 </div>
 </div>
