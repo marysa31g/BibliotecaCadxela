@@ -23,11 +23,11 @@ class Model_buscarlibro extends CI_Model
 			return false;
 		}
 	}
+
+	
 	/*
 
 	SELECT libros.titulo,estudiante.nombre,adeudos.matricula,adeudos.fechareposicion from adeudos INNER JOIN estudiante ON estudiante.matricula=adeudos.matricula INNER JOIN libros ON libros.idlibro=adeudos.idlibro;
-
-	SELECT libros.titulo,libros.ISBN,libros.paginas,libros.numeroejemplar, libros.editorial,autores.nombre, autores.apellido from autores INNER JOIN autores_libro ON autores.idautor=autores_libro.idautor INNER JOIN libros on libros.idlibro=autores_libro.idlibro;
 	*/
 
 

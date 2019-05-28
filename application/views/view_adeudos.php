@@ -13,6 +13,7 @@
          <li class="nav-item active">
           <a class="nav-link" href="<?php echo base_url();?>welcome" >Home<span class="sr-only">(current)</span></a>
         </li>
+
         
         
       </ul>
@@ -20,6 +21,8 @@
   </div>
 
 </nav>
+
+
 </header>
 <div class="container p-4">
  <div class="row mt-2 justify-content-center">
@@ -30,7 +33,6 @@
   
 </div>
 </div>
-
 
 <div class="row mt-5">
   <h2></h2>

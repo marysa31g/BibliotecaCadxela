@@ -12,6 +12,7 @@ class Welcome extends CI_Controller {
 		if ($this->session->userdata('is_authenticated') == TRUE) {
 			$this->user->setUserID($this->session->userdata('user_id'));
 			$this->user->setRol($this->session->userdata('tiporol'));
+			
         }
 		$this->load->view('Contenido/Index');
 		$this->load->view('headerfoop/header');

@@ -45,14 +45,14 @@
                 <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>usuarios_controller" >Usuarios</a>
                       </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>libros_controller" >Libros</a>
+                    </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Buscar libro </a>
+                        <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Busqueda</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>adeudos" >Adeudos</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>prestamos" >Prestamos</a>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="<?php echo base_url();?>adeudos" ><span class="badge">1</span>Adeudos</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>LendBook" >Realizar Prestamos</a>

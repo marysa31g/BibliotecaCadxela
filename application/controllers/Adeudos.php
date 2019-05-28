@@ -10,7 +10,11 @@ class Adeudos extends CI_Controller{
 		$this->load->view('view_adeudos',$data);
 		$this->load->view('headerfoop/foop');
 	}
-
+	
+	public function verAdeudo(){
+		$result=$this->db->get('adeudos');
+		$data = array('consu'=>$res);
+	}
 
 
 
