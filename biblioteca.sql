@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-05-2019 a las 04:29:11
+-- Tiempo de generación: 29-05-2019 a las 03:50:01
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -63,7 +63,14 @@ CREATE TABLE `autores` (
 INSERT INTO `autores` (`idautor`, `nombre`, `apellido`) VALUES
 (1, 'Anita', 'Mooorjani'),
 (2, 'Juan', 'Rulfo'),
-(3, 'Carlos Cuauhtemoc', 'Sanchez');
+(3, 'Carlos Cuauhtemoc', 'Sanchez'),
+(4, 'Gabriel', 'García Márquez'),
+(5, 'Nicolai ', 'Gogol'),
+(6, 'Isabel', 'Allende'),
+(7, 'Ana', 'Frank'),
+(8, 'Carlos ', 'Fuentes'),
+(9, 'José', 'Saramago'),
+(10, 'Milan', 'Kundera');
 
 -- --------------------------------------------------------
 
@@ -72,6 +79,7 @@ INSERT INTO `autores` (`idautor`, `nombre`, `apellido`) VALUES
 --
 
 CREATE TABLE `autores_libro` (
+  `id_autores_libro` int(10) NOT NULL,
   `idlibro` int(10) NOT NULL,
   `idautor` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -80,12 +88,14 @@ CREATE TABLE `autores_libro` (
 -- Volcado de datos para la tabla `autores_libro`
 --
 
-INSERT INTO `autores_libro` (`idlibro`, `idautor`) VALUES
-(1, 1),
-(2, 1),
-(3, 2),
-(4, 2),
-(5, 3);
+INSERT INTO `autores_libro` (`id_autores_libro`, `idlibro`, `idautor`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2),
+(4, 4, 2),
+(6, 6, 7),
+(7, 7, 9),
+(8, 8, 8);
 
 -- --------------------------------------------------------
 
@@ -136,7 +146,9 @@ INSERT INTO `libros` (`idlibro`, `titulo`, `ISBN`, `numeroejemplar`, `paginas`, 
 (2, 'y si esto ya es el cielo', ' 9878454924', 2, 145, 'GAIA EDICIONES'),
 (3, 'Pedro páramo', '1234454934', 1, 201, 'RM'),
 (4, 'El Llano en llamas', '1245677222', 2, 123, 'RM'),
-(5, 'los ojos de mi princesa', '9923445934', 1, 512, 'salamanca');
+(6, 'El diario de Ana Frank', '1412512536', 2, 216, 'Pehuen'),
+(7, 'Ensayo sobre la ceguera', '8495501074', 4, 440, 'ASM'),
+(8, 'La muerte de Artemio Cruz', '8447308812', 3, 240, '240');
 
 -- --------------------------------------------------------
 
@@ -225,6 +237,7 @@ ALTER TABLE `autores`
 -- Indices de la tabla `autores_libro`
 --
 ALTER TABLE `autores_libro`
+  ADD PRIMARY KEY (`id_autores_libro`),
   ADD KEY `idlibro` (`idlibro`),
   ADD KEY `idautor` (`idautor`);
 
@@ -277,13 +290,19 @@ ALTER TABLE `adeudos`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `idautor` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idautor` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `autores_libro`
+--
+ALTER TABLE `autores_libro`
+  MODIFY `id_autores_libro` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `idlibro` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idlibro` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamo`

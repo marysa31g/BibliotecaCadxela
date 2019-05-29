@@ -55,7 +55,7 @@
               <?php
                 $query = $mysqli -> query ("SELECT * FROM autores");
                 while ($valores = mysqli_fetch_array($query)) {
-                  echo '<option value="'.$valores[idautor].'">'.$valores[nombre].'</option>';
+                  echo '<option value="'.$valores[idautor].'">'.$valores[nombre].' '. $valores[apellido].'  </option>';
                 
                 }
               ?>
