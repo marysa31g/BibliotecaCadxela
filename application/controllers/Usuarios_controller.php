@@ -69,18 +69,19 @@ class Usuarios_controller extends CI_Controller{
     }
      
     //Controlador para eliminar
-    public function eliminar($id_usuario){
-        if(is_numeric($id_usuario)){
-          $eliminar=$this->usuarios_model->eliminar($id_usuario);
+    public function eliminar($idlibro){
+        if(is_numeric($idlibro)){
+          $eliminar=$this->Libros_model->eliminar($idlibro);
           if($eliminar==true){
-              $this->session->set_flashdata('correcto', 'Usuario eliminado correctamente');
+              $this->session->set_flashdata('correcto', 'Libro eliminado correctamente');
           }else{
-              $this->session->set_flashdata('incorrecto', 'Usuario eliminado correctamente');
+              $this->session->set_flashdata('incorrecto', 'Libro no eliminado');
           }
-          redirect(base_url());
+          redirect(Verlibros_controller);
         }else{
-          redirect(base_url());
+          redirect(Verlibros_controller);
         }
+        redirect(Verlibros_controller);
     }
 }
 ?>

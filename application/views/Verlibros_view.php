@@ -1,6 +1,4 @@
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
- <header>
+<header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Cadxela</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,103 +13,90 @@
          <li class="nav-item active">
           <a class="nav-link" href="<?php echo base_url();?>welcome" >Home<span class="sr-only">(current)</span></a>
         </li>
-
         
         
       </ul>
     </form>
   </div>
-
 </nav>
-
-
 </header>
-<p></p>
+<br><br>
+<center><h2>Libros</h2></center>
+<?php
+if($this->session->flashdata('correcto')){
+  echo "<script type=\"text/javascript\">  alert(\"Tarea ejecutada corectamente\");  </script>";
+}
 
-<div class="container">
+if($this->session->flashdata('incorrecto'))
+{
+  echo "<script type=\"text/javascript\">  alert(\"Tarea erronea\");  </script>";
+}
+?>
+  <center>
+    <table border="1" class="table table-striped">
+     <thead>
+       <tr>
+        <th scope="col">
+          Título
+        </th>
+        <th scope="col">
+         ISBN
+       </th>
+       <th scope="col">
+        Número ejemplar
+      </th>
+      <th scope="col">
+        Páginas
+      </th>
+      <th scope="col">
+       Editorial
+     </th>
+     <th scope="col">
+       Autor
+     </th>
+     <th scope="col">
+       Apellido
+     </th>
+     <th scope="col">
+       Configuración
+     </th>
+   </tr>
+ </thead>
 
-	<table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>ISBN</th>
-                <th>Stock</th>
-                <th>Páginas</th>
-                <th>Editorial</th>
-                <th>Autor</th>
-                <th>Apellidos</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Título</th>
-                <th>ISBN</th>
-                <th>Stock</th>
-                <th>Páginas</th>
-                <th>Editorial</th>
-                <th>Autor</th>
-                <th>Apellidos</th>
-            </tr>
-        </tfoot>
-    </table>
-
-</div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-	$(document).ready( function () {
-
-      $('#example').dataTable({
-        "ajax": {
-            "type" : "GET",
-            "url" : "Verlibros_controller/getList",
-            "dataSrc": function ( json ) {
-                return json.data;
-            }       
-            },
-            "columns": [
-	                { "data": "titulo" },
-                  { "data": "ISBN" },
-                  { "data": "numeroejemplar" },
-                  { "data": "paginas" },
-                  { "data": "editorial" }, 
-                  { "data": "nombre" },
-                  { "data": "apellido" }
-
-	            ]
-        
-      });
+ <?php foreach($ver as $fila){?>
+  <tr>
+    <td>
+      <?=$fila->titulo;?>
+    </td>
+    <td>
+      <?=$fila->ISBN;?>
+    </td>
+    <td>
+      <?=$fila->numeroejemplar;?>
+    </td>
     
-
-
-	} );
-
-</script>
+    <td>
+      <?=$fila->paginas;?>
+    </td>
+    <td>
+      <?=$fila->editorial;?>
+    </td>
+    <td>
+      <?=$fila->nombre;?>
+    </td>
+    <td>
+      <?=$fila->apellido;?>
+    </td>
+    <td>
+      <a class="btn btn-success" href="<?=base_url("libros_controller/mod/$fila->idlibro")?>">Modificar</a>
+      <a class="btn btn-danger" href="<?=base_url("libros_controller/eliminar/$fila->idlibro")?>">Eliminar</a>
+    </td>
+  </tr>
+  <?php
+  
+}
+?>
+</table>
+</center>
+</body>
+</html>

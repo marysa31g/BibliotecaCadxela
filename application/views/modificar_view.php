@@ -9,6 +9,24 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>rec/css/mystyle.css">
     <script type="text/javascript" src="<?php echo base_url();?>rec/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>rec/js/bootstrap.min.js"></script>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Cadxela</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+       
+      </ul>
+      <form class="form-inline mt-2 mt-md-0">
+       <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+          <a class="nav-link" href="<?php echo base_url();?>welcome" >Home<span class="sr-only">(current)</span></a>
+        </li>
+        
+        
+      </ul>
+    </form>
 </head>
     </head>
     <body>

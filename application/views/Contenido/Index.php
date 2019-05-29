@@ -45,8 +45,18 @@
                 <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>usuarios_controller" >Usuarios</a>
                       </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>Libros_controller" >Agregar libros</a>
+
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>libros_controller" >Libros</a>
+                        <a class="nav-link" href="<?php echo base_url();?>Verlibros_controller" >Ver libros</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>Libros_disponibles" >Libros disponibles</a>
+                        
                     </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>buscarlibro" >Busqueda</a>

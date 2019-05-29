@@ -1,48 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+	class Verlibros_controller extends CI_Controller{
+    public function __construct() {
 
-class Verlibros_controller extends CI_Controller {
+        parent::__construct();
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("Verlibros_Model");
-	}
+        $this->load->helper("url"); 
+         
 
-	public function index(){
-		$this->load->view("headerfoop/header");
-		$this->load->view("Verlibros_view");
-		$this->load->view("headerfoop/foop");
-	}
-	public function array_books(){
-		$result=$this->Verlibros_Model->ver();
+        $this->load->model("Verlibros_Model");
 
-		$aux=array();
-		foreach ($result as $r){
+        $this->load->library("session");
+    }
+     
 
-			$array=array(
-				"idlibro"=>$r->idlibro,
-				"titulo"=>$r->titulo,
-				"ISBN"=>$r->ISBN,
-				"numeroejemplar"=>$r->numeroejemplar,
-				"paginas"=>$r->paginas,
-				"editorial"=>$r->editorial,
-				"nombre"=>$r->nombre,
-				"apellido"=>$r->apellido,
-			);
-			array_push($aux,$array);
-		}
+    public function index(){
+         
+        $this->load->view('headerfoop/header');
+        $libros["ver"]=$this->Verlibros_Model->ver();
+        $this->load->view("Verlibros_view",$libros);
+    }
+     
 
-		return $aux;
-
-	}
-	
-	public function getList(){
-		$data=array("data"=>$this->array_books());
-		header('Content-type: application/json');
-		echo json_encode($data);
-
-	}
-
-
-}
+   }
+?>

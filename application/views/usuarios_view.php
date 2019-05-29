@@ -33,6 +33,7 @@ if($this->session->flashdata('incorrecto'))
 }
 ?>
 
+
 <form action="<?=base_url("usuarios_controller/add");?>" method="post">
   <center>
     <table border="0">
